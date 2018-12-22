@@ -2,7 +2,7 @@ package day16
 
 import java.io.File
 
-val registers = Registers()
+val registers = Registers(4)
 val ops = listOf(addr(), addi(), mulr(), muli(), banr(), bani(), borr(), bori(),
                 setr(), seti(), gtir(), gtri(), gtrr(), eqir(), eqri(), eqrr())
 
@@ -140,9 +140,9 @@ fun addToMap(op:Op, code:Int) {
 
 data class TestCase(val input:List<Int>, val output:List<Int>, val op:Int, val a:Int, val b:Int, val c:Int)
 
-class Registers {
+data class Registers(val size:Int) {
 
-    private var list = MutableList(4) {0}
+    private var list = MutableList(size) {0}
 
     fun set(zero:Int, one:Int, two:Int, three:Int) {
         list[0] = zero
@@ -189,6 +189,8 @@ class addr : Op() {
         val result = registers.get(a) + registers.get(b)
         registers.set(c, result)
     }
+
+    override fun toString(): String = "addr"
 }
 
 class addi : Op() {
@@ -197,6 +199,8 @@ class addi : Op() {
         val result = registers.get(a) + b
         registers.set(c, result)
     }
+
+    override fun toString(): String = "addi"
 }
 
 class mulr : Op() {
@@ -205,6 +209,8 @@ class mulr : Op() {
         val result = registers.get(a) * registers.get(b)
         registers.set(c, result)
     }
+
+    override fun toString(): String = "mulr"
 }
 
 class muli : Op() {
@@ -213,6 +219,8 @@ class muli : Op() {
         val result = registers.get(a) * b
         registers.set(c, result)
     }
+
+    override fun toString(): String = "muli"
 }
 
 class banr : Op() {
@@ -221,6 +229,8 @@ class banr : Op() {
         val result = registers.get(a) and registers.get(b)
         registers.set(c, result)
     }
+
+    override fun toString(): String = "banr"
 }
 
 class bani : Op() {
@@ -229,6 +239,8 @@ class bani : Op() {
         val result = registers.get(a) and b
         registers.set(c, result)
     }
+
+    override fun toString(): String = "bani"
 }
 
 class borr : Op() {
@@ -237,6 +249,8 @@ class borr : Op() {
         val result = registers.get(a) or registers.get(b)
         registers.set(c, result)
     }
+
+    override fun toString(): String = "borr"
 }
 
 class bori : Op() {
@@ -245,6 +259,8 @@ class bori : Op() {
         val result = registers.get(a) or b
         registers.set(c, result)
     }
+
+    override fun toString(): String = "bori"
 }
 
 class setr : Op() {
@@ -252,6 +268,8 @@ class setr : Op() {
     override fun apply(a:Int, b:Int, c:Int) {
         registers.set(c, registers.get(a))
     }
+
+    override fun toString(): String = "setr"
 }
 
 class seti : Op() {
@@ -259,6 +277,8 @@ class seti : Op() {
     override fun apply(a:Int, b:Int, c:Int) {
         registers.set(c, a)
     }
+
+    override fun toString(): String = "seti"
 }
 
 class gtir : Op() {
@@ -267,6 +287,8 @@ class gtir : Op() {
         val result = if (a > registers.get(b)) 1 else 0
         registers.set(c, result)
     }
+
+    override fun toString(): String = "gtir"
 }
 
 class gtri : Op() {
@@ -275,6 +297,8 @@ class gtri : Op() {
         val result = if (registers.get(a) > b) 1 else 0
         registers.set(c, result)
     }
+
+    override fun toString(): String = "gtri"
 }
 
 class gtrr : Op() {
@@ -283,6 +307,8 @@ class gtrr : Op() {
         val result = if (registers.get(a) > registers.get(b)) 1 else 0
         registers.set(c, result)
     }
+
+    override fun toString(): String = "gtrr"
 }
 
 class eqir : Op() {
@@ -291,6 +317,8 @@ class eqir : Op() {
         val result = if (a == registers.get(b)) 1 else 0
         registers.set(c, result)
     }
+
+    override fun toString(): String = "eqir"
 }
 
 class eqri : Op() {
@@ -299,6 +327,8 @@ class eqri : Op() {
         val result = if (registers.get(a) == b) 1 else 0
         registers.set(c, result)
     }
+
+    override fun toString(): String = "eqri"
 }
 
 class eqrr : Op() {
@@ -307,4 +337,6 @@ class eqrr : Op() {
         val result = if (registers.get(a) == registers.get(b)) 1 else 0
         registers.set(c, result)
     }
+
+    override fun toString(): String = "eqrr"
 }
